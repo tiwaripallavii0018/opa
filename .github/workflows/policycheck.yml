@@ -11,15 +11,13 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3 
-        # actions-user name ,  checkout@v3 -repo
+        uses: actions/checkout@v3
 
       - name: Install Conftest
         run: |
-          wget https://github.com/open-policy-agent/conftest/releases/latest/download/conftest_Linux_x86_64.tar.gz
-          tar xzf conftest_Linux_x86_64.tar.gz
+          curl -L -o conftest.tar.gz https://github.com/open-policy-agent/conftest/releases/download/v0.45.0/conftest_0.45.0_Linux_x86_64.tar.gz
+          tar xzf conftest.tar.gz
           sudo mv conftest /usr/local/bin
-
       - name: Run OPA Policy Check
         run: |
           conftest test config.json --policy policy/
