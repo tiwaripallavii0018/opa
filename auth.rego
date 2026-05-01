@@ -1,18 +1,26 @@
 package auth
-default allow=false
+
 allow if{
-  input.user.role=="admin"
-  input.user.role=="student"
-  input.resource=="profile"
-  input.action=="update"
-  input.user.id==input.resource_owner_id 
-} 
+    input.user.role == "admin"
+}
+
+# Manager → read/write reports
 allow if{
-  input.user.role=="student"
-  input.resource=="profile"
-  input.action=="read"
-  input.user.id==input.resource_owner_id 
-} 
+    input.user.role == "manager"
+    input.resource == "reports"
+    input.action == "read"
+}
+
 allow if{
-  input.user.role=="HOD"
+    input.user.role == "manager"
+    input.resource == "reports"
+    input.action == "write"
+}
+
+# User → read their own profile
+allow if{
+    input.user.role == "user"
+    input.resource == "profile"
+    input.action == "read"
+    input.user.id == input.resource_owner_id
 }
