@@ -1,5 +1,5 @@
 {
   "name": "my-service",
-  "public": true,
-  "env": "dev"
+  "public": false,
+  "env": "prod"
 }
